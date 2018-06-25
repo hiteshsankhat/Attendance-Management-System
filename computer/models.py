@@ -13,6 +13,7 @@ class Staff(models.Model):
 class Subject(models.Model):
     name = models.CharField(max_length=80)
     abr = models.CharField(max_length=8)
+    semister = models.IntegerField(null=True)
 
     def __str__(self):
         return self.name
@@ -26,6 +27,7 @@ class Student(models.Model):
     division = models.CharField(max_length=2)
     batch = models.CharField(max_length=2)
     batch_id = models.IntegerField()
+    semister = models.IntegerField()
 
     def __str__(self):
         return self.first_name + self.last_name
@@ -36,9 +38,3 @@ class Attendance(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     lec_count = models.IntegerField()
-
-
-class Semister_5(models.Model):
-    students = models.ForeignKey(Student, on_delete=models.CASCADE)
-    subjects = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    attendances = models.ForeignKey(Attendance, on_delete=models.CASCADE)
