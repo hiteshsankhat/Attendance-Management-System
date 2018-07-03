@@ -33,8 +33,6 @@ class Student(models.Model):
         return self.first_name + self.last_name
 
 class Attendance(models.Model):
-    student_data = models.OneToOneField(Student,on_delete=models.CASCADE)
-    sudject_data = models.OneToOneField(Subject,on_delete=models.CASCADE)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    subject_data = models.CharField(max_length=8)
     lec_count = models.IntegerField()
+    student_data = models.CharField(max_length=10)

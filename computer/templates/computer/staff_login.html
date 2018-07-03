@@ -27,6 +27,20 @@
       <h1>Welcome, {{ user }}</h1>
     </div>
   </div>
+  <form class="" method="post">
+     {% csrf_token %}
+    <div class="row">
+      <div class="col-8 mx-auto">
+        <button type="submit" class="btn btn-success" name="take_attendance" value="take">Take Attendance</button>
+      </div>
+    </div>
+    <br >
+    <div class="row">
+      <div class="col-8 mx-auto">
+        <button type="submit" class="btn btn-success" name="check_attendance" value="check">Check Attendance</button>
+      </div>
+    </div>
+  </form>
   {% endif %}
 </div>
 

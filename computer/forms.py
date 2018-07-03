@@ -39,3 +39,60 @@ class StaffLoginForm(forms.Form):
                         }
                     )
                 )
+
+semester_choice = (
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5'),
+    ('6','6'),
+    ('7','7'),
+    ('8','8')
+)
+
+division_choice = (
+    ('A','A'),
+    ('B','B'),
+    ('C','C'),
+)
+
+subject_choice = (
+    ('ML','Manchine Learning'),
+    ('DL','Deep Learning'),
+    ('NPL','Natural Processing Language')
+)
+
+class TakeAttendance(forms.Form):
+    semester = forms.ChoiceField(choices=semester_choice,label='Semester',
+                widget=forms.Select(
+                        attrs= {
+                            'class':'form-control'
+                        }
+                    )
+                )
+    division = forms.ChoiceField(choices=division_choice,label='Division',
+                widget=forms.Select(
+                        attrs= {
+                            'class':'form-control'
+                        }
+                    )
+                )
+    subject = forms.ChoiceField(choices=subject_choice,label='Subject',
+                widget=forms.Select(
+                        attrs= {
+                            'class':'form-control'
+                        }
+                    )
+                )
+    lecture_count = forms.CharField(label="Lecture Count",max_length=80,
+                widget=forms.TextInput(
+                    attrs={
+                        "class": "form-control",
+                        "style": "padding=5px",
+                        }
+                    )
+                )
+
+class AddAttendance(forms.Form):
+    check = forms.BooleanField(label='',required=False)

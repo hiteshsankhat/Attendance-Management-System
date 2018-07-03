@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+<title>Hello, world!</title>
+{% endblock %}
+
+
+{% block content %}
+<div class="container py-2">
+<form method="POST">
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">SR.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Roll ID</th>
+      <th scope="col">Present</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% csrf_token %}
+    {% for r in res %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ r.first_name }} {{ r.last_name }}</td>
+      <td>{{ r.roll_id }}</td>
+      <td> <input type="checkbox" name="{{ r.roll_id }}" value="r1"> </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    <button type="submit" class="btn btn-success" name="data" value="{{ data }}" >Login</button>
+</form>
+</div>
+{% endblock %}

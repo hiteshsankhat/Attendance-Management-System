@@ -22,4 +22,6 @@ urlpatterns = [
     path('student', views.student_login, name='Student'),
     path('staff', views.staff_login, name='Staff'),
     path('admin-page', views.admin_login, name='Admin'),
+    path('take-attendance', views.take_attendance, name='TakeAttend'),
+    path('check-attendance', views.check_attendance, name='CheckAT'),
 ]
