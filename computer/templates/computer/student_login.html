@@ -27,6 +27,24 @@
       <h1>Welcome, {{ user }}</h1>
     </div>
   </div>
+    <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">SR.</th>
+        <th scope="col">Subject Name </th>
+        <th scope="col">Attendance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for k,v in sub.items %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{k}}</td>
+        <td>{{v}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   {% endif %}
 </div>
 

@@ -18,6 +18,21 @@ def student_login(request):
         Password = form.cleaned_data.get('Password')
         user = stud.objects.filter(roll_id__iexact=username)[0]
         context['user'] = user.first_name + " " + user.last_name
+        roll_id = user.roll_id
+        sem = user.semister
+        subject = models.Subject.objects.filter(semister=sem)
+        d={}
+        subject_name = []
+        for j in subject:
+            sub = j.abr
+            subject_name.append(j.name)
+            d[j.name] = 0
+            attend = models.Attendance.objects.filter(subject_data=sub,student_data=roll_id)
+            for a in attend:
+                d[j.name]+=(a.lec_count)
+        # vall = d.values()
+        # context['nma'] = vall
+        context['sub'] = d
         return render(request, 'computer/student_login.html',context)
     return render(request, 'computer/student_login.html',context)
 
@@ -47,7 +62,41 @@ def admin_login(request):
     return render(request, 'computer/admin_login.html')
 
 def check_attendance(request):
-    return render(request, 'computer/check_attendance.html')
+    form = forms.CheckAttendance(request.POST or None)
+    context = {
+        'form':form,
+    }
+    if form.is_valid():
+        sem = request.POST.get('semester')
+        div = request.POST.get('division')
+        subject = models.Subject.objects.filter(semister=sem)
+        student = models.Student.objects.filter(division=div, semister=sem)
+        student_name = []
+        subject_name = []
+
+        att = {}
+        for i in student:
+            d = {}
+            roll_id = i.roll_id
+            student_name.append([i.first_name + " "+i.last_name,roll_id])
+            for j in subject:
+                sub = j.abr
+                if sub not in subject_name :
+                    subject_name.append(sub)
+                d[sub] = 0
+                attend = models.Attendance.objects.filter(subject_data=sub,student_data=roll_id)
+                for a in attend:
+                    d[sub]+=(a.lec_count)
+            att[roll_id] = d
+
+        context = {
+            'form':form,
+            'student':student_name,
+            'subject':subject_name,
+            'attend':att
+        }
+        return render(request, 'computer/check_attendance.html',context)
+    return render(request, 'computer/check_attendance.html',context)
 
 
 def take_attendance(request):

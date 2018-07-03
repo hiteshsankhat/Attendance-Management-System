@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+<title>Check Attendance</title>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class=" col-8 offset-lg-2 ">
+      <form method="POST">
+        <br>
+        <div class="form-group row">
+          {% csrf_token %}
+          <!-- {{ form }} -->
+          {% for field in form %}
+            <div class="col-2 col-form-label">
+                <label for="{{ field.name }}">{{ field.label }}</label>
+            </div>
+            <div class="col-2">
+            {{ field }}
+            </div>
+          {% endfor %}
+          <div class="col-3">
+              <button type="submit" class="btn btn-success">Enter</button>
+          </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="container py-2">
+        <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">SR.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Roll ID</th>
+            {% for s in subject %}
+            <th scope="col">{{ s }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for stud in student %}
+            <tr>
+            <td>{{ forloop.counter }}</td>
+            {% for rands in stud %}
+            <td>{{rands}}</td>
+            {% endfor %}
+            {% with stud.1 as roll %}
+            {% for sub in subject %}
+            {% for ind, val in attend.items %}
+            {% if ind == roll %}
+            {% for k, v in val.items %}
+            {% if k == sub %}
+            <td>{{v}}</td>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endwith %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

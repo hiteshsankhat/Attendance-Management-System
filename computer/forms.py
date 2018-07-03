@@ -96,3 +96,20 @@ class TakeAttendance(forms.Form):
 
 class AddAttendance(forms.Form):
     check = forms.BooleanField(label='',required=False)
+
+
+class CheckAttendance(forms.Form):
+    semester = forms.ChoiceField(choices=semester_choice,label='Semester',
+                widget=forms.Select(
+                        attrs= {
+                            'class':'form-control'
+                        }
+                    )
+                )
+    division = forms.ChoiceField(choices=division_choice,label='Division',
+                widget=forms.Select(
+                        attrs= {
+                            'class':'form-control'
+                        }
+                    )
+                )
